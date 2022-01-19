@@ -18,16 +18,16 @@ connection.once("open", async () => {
 
   await User.create(
     {
-    username: "mattreynolds53",
-    email: "mr53@gmail.com",
+      username: "mattreynolds53",
+      email: "mr53@gmail.com",
     },
     {
-      username: 'SchoolBoyKev',
-      email: 'yaboykev@yahoo.com'
+      username: "SchoolBoyKev",
+      email: "yaboykev@yahoo.com",
     },
     {
-      username: 'Wandisimo',
-      password: "wandisimo@aol.com"
+      username: "Wandisimo",
+      password: "wandisimo@aol.com",
     }
   );
 
@@ -43,16 +43,17 @@ connection.once("open", async () => {
 
   await Thought.create(
     {
-      thoughText: "Wow, I never thought about it like that. What a unique persepctive!",
+      thoughText:
+        "Wow, I never thought about it like that. What a unique persepctive!",
       username: "mattreynolds53",
     },
     {
       tthoughtText: "I wish I could have joined. That trip looked so fun!",
-      username: 'SchoolBoyKev',
+      username: "SchoolBoyKev",
     },
     {
       thoughtText: "I can't believe that is what happened",
-      username: 'Wandisimo',
+      username: "Wandisimo",
     }
   );
 
