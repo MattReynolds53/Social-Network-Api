@@ -13,54 +13,53 @@ connection.once("open", async () => {
   // Drop existing students
   await Thought.deleteMany({});
 
-  // Create empty array to hold the students
-  const seedUsers = [];
 
-  await User.create(
+  const seedThoughts = [
     {
-      username: "mattreynolds53",
-      email: "mr53@gmail.com",
-    },
-    {
-      username: "SchoolBoyKev",
-      email: "yaboykev@yahoo.com",
-    },
-    {
-      username: "Wandisimo",
-      password: "wandisimo@aol.com",
-    }
-  );
-
-  seedUsers.push({
-    username,
-    email,
-  });
-
-  // Add students to the collection and await the results
-  await User.collection.insertMany(seedUsers);
-
-  const seedThoughts = [];
-
-  await Thought.create(
-    {
-      thoughText:
+      thoughtText:
         "Wow, I never thought about it like that. What a unique persepctive!",
       username: "mattreynolds53",
     },
     {
-      tthoughtText: "I wish I could have joined. That trip looked so fun!",
+      thoughtText: "I wish I could have joined. That trip looked so fun!",
       username: "SchoolBoyKev",
     },
     {
       thoughtText: "I can't believe that is what happened",
       username: "Wandisimo",
     }
-  );
+  ];
 
-  seedThoughts.push({
-    thoughtText,
-    username,
-  });
+const thoughts = Thought.insertMany(seedThoughts);
+console.log(thoughts);
+console.log(thoughts[0]);
+
+
+  // Create empty array to hold the students
+  const seedUsers = [
+    {
+      username: "mattreynolds53",
+      email: "mr53@gmail.com",
+      thoughts: seedThoughts[0],
+      // Give id from compass here^
+    },
+    {
+      username: "SchoolBoyKev",
+      email: "yaboykev@yahoo.com",
+      thoughts: seedThoughts[1],
+    },
+    {
+      username: "Wandisimo",
+      email: "wandisimo@aol.com",
+      thoughts: seedThoughts[2],
+    }
+  ];
+
+
+
+  // Add students to the collection and await the results
+  const users = await User.insertMany(seedUsers);
+  console.log(users)
 
   // Log out the seed data to indicate what should appear in the database
   console.table(seedUsers);
