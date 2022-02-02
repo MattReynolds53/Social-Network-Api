@@ -3,6 +3,7 @@ const { User, Thought } = require("../models");
 const userController = {
   getAllUsers(req, res) {
     User.find()
+      .select("-__v")
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -29,7 +30,7 @@ const userController = {
   updateUser(req, res) {
     User.findOneAndUpdate(
       { id: req.params.id },
-      { $set: req.user },
+      { $set: req.body },
       { runValidators: true, new: true }
     )
       .then((dbUserData) => {
@@ -43,7 +44,7 @@ const userController = {
   },
 
   deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
+    User.findOneAndDelete({ _id: req.params.userId })
       .then((dbUserData) => {
         if (!dbUserData) {
           res.status(404).json({ message: "No user with this ID!" });
@@ -57,7 +58,7 @@ const userController = {
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.id },
-      { $push: { friends: req.params.friendId } },
+      { $addToSet: { friends: req.params.friendId } },
       { new: true }
       // Am i missing anything here between the above and below code?
       .then((dbUserData) => {
@@ -76,8 +77,8 @@ const userController = {
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.friendId },
-      { $pull: { friends: { friendIs: req.params.friendId} } },
-      { runValidators: true, new: true }
+      { $pull: { friends: { friendId: req.params.friendId} } },
+      { new: true }
     )
     .then((dbUserData) => {
       if (!dbUserData) {
