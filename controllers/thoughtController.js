@@ -68,7 +68,7 @@ const thoughtsController = {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
-          return res.status(404).json({ message: 'No thought with this id!' });
+          return res.status(404).json({ message: 'No thought with this ID!' });
         }
         // remove thought id from user's `thoughts` field
         return User.findOneAndUpdate(
@@ -79,7 +79,7 @@ const thoughtsController = {
       })
       .then((dbUserData) => {
         if (!dbUserData) {
-          return res.status(404).json({ message: 'Thought created but no user with this id!' });
+          return res.status(404).json({ message: 'Thought created but no user with this ID!' });
         }
         res.json({ message: 'Thought successfully deleted!' });
       })
@@ -88,7 +88,7 @@ const thoughtsController = {
         res.status(500).json(err);
       });
   },
-  
+
   createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -97,7 +97,7 @@ const thoughtsController = {
     )
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
-          return res.status(404).json({ message: 'No thought with this id!' });
+          return res.status(404).json({ message: 'No thought with this ID!' });
         }
         res.json(dbThoughtData);
       })
@@ -115,7 +115,7 @@ const thoughtsController = {
     )
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
-          return res.status(404).json({ message: 'No thought with this id!' });
+          return res.status(404).json({ message: 'No thought with this ID!' });
         }
         res.json(dbThoughtData);
       })
