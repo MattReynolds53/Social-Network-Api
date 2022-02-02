@@ -6,10 +6,12 @@ const userController = {
         .then((users) => res.json(users))
         .catch((err) => res.status(500).json(err));
     },
+
     getUserById(req, res) {
         User.findOne({ _id: req.params.userId })
           .select('-__v')
           .populate('thoughts')
+          .populate('friends')
           .then((user) =>
             !user
               ? res.status(404).json({ message: 'No user with that ID' })
@@ -17,9 +19,16 @@ const userController = {
           )
           .catch((err) => res.status(500).json(err));
       },
+
       createUser(req, res) {
         User.create(req.body)
           .then((dbUserData) => res.json(dbUserData))
           .catch((err) => res.status(500).json(err));
       },
+
+      updateUser(req, res) {
+        User.findOneAndUpdate({id: req.params.id}, {$set: req.user})
+      },
 }
+
+module.exports = userController
