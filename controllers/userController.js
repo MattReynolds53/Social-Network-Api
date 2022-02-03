@@ -5,7 +5,10 @@ const userController = {
     User.find()
       .select("-__v")
       .then((users) => res.json(users))
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        res.status(500).json(err);
+        console.log(err);
+      })
   },
 
   getUserById(req, res) {
